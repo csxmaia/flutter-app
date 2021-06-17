@@ -29,7 +29,6 @@ class _TarefaDetailsState extends State<TarefaDetails> {
           children: <Widget>[
             Text("Titulo tarefa X"),
             Text("Descricao tarefa X"),
-            Text("Comentarios tarefa X")
           ]
         )
        )

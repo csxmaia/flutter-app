@@ -1,14 +1,24 @@
+import 'package:appidea/app/database/sqlite/connection.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:sqflite/sqflite.dart';
 
 import '../my_app.dart';
 
 
 class Home extends StatelessWidget {
+
   static final lista = [
     {'nome': 'To Do', 'cor': 'blue'},
     {'nome': 'Doing', 'cor': 'green'},
     {'nome': 'Done', 'cor': 'red'}
   ];
+
+  Future<List<Map<String, dynamic>>> _buscar() async {
+    Database? db = await Connection.get();
+    return db!.query("secao");
+  }
+
   Home({Key? key, required this.title}) : super(key: key);
   final String title;
   // a programacao assincrona tem como base, realizar uma operação,
@@ -72,70 +82,60 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: ListView.builder(
-        itemCount: lista.length,
-        itemBuilder: (context, i){
-          var item = lista[i];
-          return ListTile(
-            title: Text(item['cor']! + "  " + item['nome']!),
-            trailing: Text(item['cor']!),
-            onTap: () => realizaOperacoesNoServidor(context)
+    return FutureBuilder(
+      future: _buscar(),
+      builder: (context, futuro) {
+        if(futuro.hasData) {
+          var lista; 
+          lista = futuro.data;
+          return Scaffold(
+            appBar: AppBar(title: Text(title)),
+            body: ListView.builder(
+              itemCount: lista != null? lista.length : 0,
+              itemBuilder: (context, i){
+                var item = lista![i];
+                return ListTile(
+                  title: Text(item['cor']! + "  " + item['nome']!),
+                  trailing: Text(item['cor']!),
+                  onTap: () => realizaOperacoesNoServidor(context)
+                );
+              }
+            ),
+            floatingActionButton: FloatingActionButton(
+              // onPressed: ),
+              tooltip: 'Adicionar Seção',
+              onPressed: () {
+                Navigator.of(context).pushNamed(MyApp.SECAOFORM);
+              },
+              child: Icon(Icons.add),
+            ),
           );
-          // TextButton(
-          //     style: TextButton.styleFrom(
-          //       textStyle: const TextStyle(fontSize: 20),
-          //     ),
-          //     onPressed: () {
-          //       Navigator.of(context).pushNamed(MyApp.TAREFAS);
-          //     },
-          //     child: const Text(item['nome']),
-          //   );
+        } else {
+          return Scaffold();
         }
-      ),
-      // body: Center(
-      //   child: Column(
-      //     children: [
-      //       TextButton(
-      //         style: TextButton.styleFrom(
-      //           textStyle: const TextStyle(fontSize: 20),
-      //         ),
-      //         onPressed: () {
-      //           Navigator.of(context).pushNamed(MyApp.TAREFAS);
-      //         },
-      //         child: const Text('To Do'),
-      //       ),
-      //       TextButton(
-      //         style: TextButton.styleFrom(
-      //           textStyle: const TextStyle(fontSize: 20),
-      //         ),
-      //         onPressed: () {
-      //           Navigator.of(context).pushNamed(MyApp.TAREFAS);
-      //         },
-      //         child: const Text('Doing'),
-      //       ),
-      //       TextButton(
-      //         style: TextButton.styleFrom(
-      //           textStyle: const TextStyle(fontSize: 20),
-      //         ),
-      //         onPressed: () {
-      //           Navigator.of(context).pushNamed(MyApp.TAREFAS);
-      //         },
-      //         child: const Text('Done'),
-      //       ),
-      //     ],
-      //   )
-      // ),
-      floatingActionButton: FloatingActionButton(
-        // onPressed: ),
-        tooltip: 'Adicionar Seção',
-        onPressed: () {
-          Navigator.of(context).pushNamed(MyApp.SECAOFORM);
-        },
-        child: Icon(Icons.add),
-      ),
+      }
     );
+    // Scaffold(
+    //   appBar: AppBar(title: Text(title)),
+    //   body: ListView.builder(
+    //     itemCount: lista.length,
+    //     itemBuilder: (context, i){
+    //       var item = lista[i];
+    //       return ListTile(
+    //         title: Text(item['cor']! + "  " + item['nome']!),
+    //         trailing: Text(item['cor']!),
+    //         onTap: () => realizaOperacoesNoServidor(context)
+    //       );
+    //     }
+    //   ),
+    //   floatingActionButton: FloatingActionButton(
+    //     // onPressed: ),
+    //     tooltip: 'Adicionar Seção',
+    //     onPressed: () {
+    //       Navigator.of(context).pushNamed(MyApp.SECAOFORM);
+    //     },
+    //     child: Icon(Icons.add),
+    //   ),
+    // );
   }
 }

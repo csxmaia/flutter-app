@@ -1,6 +1,6 @@
 final createTable = """
   CREATE TABLE secao(
-    id INT NOT NULL PRIMARY KEY,
+    id INT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     cor VARCHAR(100) NOT NULL
   )
