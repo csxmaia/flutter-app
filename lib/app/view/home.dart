@@ -1,4 +1,6 @@
 import 'package:appidea/app/database/sqlite/connection.dart';
+import 'package:appidea/app/database/sqlite/dao/secao_dao_impl.dart';
+import 'package:appidea/app/domain/entities/secao.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sqflite/sqflite.dart';
@@ -14,9 +16,8 @@ class Home extends StatelessWidget {
     {'nome': 'Done', 'cor': 'red'}
   ];
 
-  Future<List<Map<String, dynamic>>> _buscar() async {
-    Database? db = await Connection.get();
-    return db!.query("secao");
+  Future<List<Secao>> _buscar() async {
+    return SecaoDAOImpl().find();
   }
 
   Home({Key? key, required this.title}) : super(key: key);
@@ -86,8 +87,7 @@ class Home extends StatelessWidget {
       future: _buscar(),
       builder: (context, futuro) {
         if(futuro.hasData) {
-          var lista; 
-          lista = futuro.data;
+          List<Secao>? lista = futuro.data as List<Secao>?;
           return Scaffold(
             appBar: AppBar(title: Text(title)),
             body: ListView.builder(
@@ -95,8 +95,8 @@ class Home extends StatelessWidget {
               itemBuilder: (context, i){
                 var item = lista![i];
                 return ListTile(
-                  title: Text(item['cor']! + "  " + item['nome']!),
-                  trailing: Text(item['cor']!),
+                  title: Text(item.cor + "  " + item.nome),
+                  trailing: Text(item.cor),
                   onTap: () => realizaOperacoesNoServidor(context)
                 );
               }
