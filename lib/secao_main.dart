@@ -38,9 +38,9 @@ abstract class _SecaoMain with Store{
 
   @action
   removerCor(){
-    for(var i = 0; i < lista.length; i++) {
-      lista[i] = {'nome': lista[i]["nome"], 'cor': Colors.transparent};
-    }
+    // for(var i = 0; i < lista.length; i++) {
+    //   lista[i] = {'nome': lista[i]["nome"], 'cor': Colors.transparent};
+    // }
     lista = [
       {'nome': 'To Do', 'cor': Colors.transparent},
       {'nome': 'Doing', 'cor': Colors.transparent},
