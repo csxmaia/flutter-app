@@ -27,69 +27,74 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _buscar(),
-      builder: (context, futuro) {
-        if(futuro.hasData) {
-          List<Secao>? lista = futuro.data as List<Secao>?;
-          return Scaffold(
+    return Scaffold(
             appBar: AppBar(title: Text(title)),
-            body: ListView.builder(
-              itemCount:  lista!.length ,
-              itemBuilder: (context, i){
-                var item = lista[i];
-                return ListTile(
-                  // title: Text("${item["cor"]}" " ${item["nome"]}"),
-                  // trailing: Text("${item["cor"]}"),
-                  // onTap: () => realizaOperacoesNoServidor(context)
-                );
-              }
-            ),
+            body: Observer(builder: (context){
+              return FutureBuilder(
+               future: stateControl.secoes,
+                builder: (context, futuro) {
+                  if(!futuro.hasData) {
+                    return CircularProgressIndicator();
+                  } else {
+                    List<Secao>? lista = futuro.data as List<Secao>?;
+                    return ListView.builder(
+                      itemCount:  lista!.length,
+                      itemBuilder: (context, i){
+                        var item = lista[i];
+                        return ListTile(
+                          // title: Text("${item["cor"]}" " ${item["nome"]}"),
+                          // trailing: Text("${item["cor"]}"),
+                          // onTap: () => realizaOperacoesNoServidor(context)
+                        );
+                      }
+                    );
+                  }});
+            },),
             floatingActionButton: FloatingActionButton(
               // onPressed: ),
               tooltip: 'Adicionar Seção',
               onPressed: () {
-                Navigator.of(context).pushNamed(MyApp.SECAOFORM);
+                stateControl.formSecao(context);
               },
               child: Icon(Icons.add),
             ),
           );
-        } else {
-          return Scaffold(
-            appBar: AppBar(title: Text(title)),
-            body:
-              ListView.builder(
-              itemCount: stateControl.lista.length,
-              itemBuilder: (context, i){
-                var item = stateControl.lista[i];
-                return Observer(builder: (context){
-                  return ListTile(
-                    tileColor: item["cor"] as Color,
-                    title: Text("${item["nome"]}"),
-                    trailing: Text("${item["cor"]}"),
-
-                    onTap: () => Navigator.of(context).pushNamed(MyApp.SECAOFORM)
-                  );
-                });
-                }
-              ),
-                // TextButton(
-                //   onPressed: stateControl.removerCor(), 
-                //   child: Text("Remover cores")
-                //   )
-            
-            floatingActionButton: FloatingActionButton(
-              // onPressed: ),
-              tooltip: 'Adicionar Seção',
-              onPressed: () {
-                Navigator.of(context).pushNamed(MyApp.SECAOFORM);
-              },
-              child: Icon(Icons.add),
-            ),
-          );
-        }
       }
-    );
+    }
+        // else {
+        //   return Scaffold(
+        //     appBar: AppBar(title: Text(title)),
+        //     body:
+        //       ListView.builder(
+        //       itemCount: stateControl.lista.length,
+        //       itemBuilder: (context, i){
+        //         var item = stateControl.lista[i];
+        //         return Observer(builder: (context){
+        //           return ListTile(
+        //             tileColor: item["cor"] as Color,
+        //             title: Text("${item["nome"]}"),
+        //             trailing: Text("${item["cor"]}"),
+
+        //             onTap: () => Navigator.of(context).pushNamed(MyApp.SECAOFORM)
+        //           );
+        //         });
+        //         }
+        //       ),
+        //         // TextButton(
+        //         //   onPressed: stateControl.removerCor(), 
+        //         //   child: Text("Remover cores")
+        //         //   )
+            
+        //     floatingActionButton: FloatingActionButton(
+        //       // onPressed: ),
+        //       tooltip: 'Adicionar Seção',
+        //       onPressed: () {
+        //         Navigator.of(context).pushNamed(MyApp.SECAOFORM);
+        //       },
+        //       child: Icon(Icons.add),
+        //     ),
+        //   );
+        // }
     // Scaffold(
     //   appBar: AppBar(title: Text(title)),
     //   body: ListView.builder(
@@ -112,8 +117,6 @@ class Home extends StatelessWidget {
     //     child: Icon(Icons.add),
     //   ),
     // );
-  }
-}
 
   // a programacao assincrona tem como base, realizar uma operação,
   // bloco de comandos (por meio de uma função assincrona) e afins sem
