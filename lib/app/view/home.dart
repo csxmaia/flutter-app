@@ -44,7 +44,9 @@ class Home extends StatelessWidget {
                         return ListTile(
                           // title: Text("${item["cor"]}" " ${item["nome"]}"),
                           // trailing: Text("${item["cor"]}"),
-                          // onTap: () => realizaOperacoesNoServidor(context)
+                          onTap: (){
+                            Navigator.of(context).pushNamed(MyApp.TAREFAS);
+                          }
                         );
                       }
                     );

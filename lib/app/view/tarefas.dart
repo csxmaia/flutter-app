@@ -31,7 +31,7 @@ class _TarefasState extends State<Tarefas> {
               textStyle: const TextStyle(fontSize: 20),
             ),
             onPressed: () {
-              Navigator.of(context).pushNamed(MyApp.TAREFADETAILS);
+              Navigator.of(context).pushNamed(MyApp.TAREFADETAILS, arguments: 1);
             },
             child: const Text('Tarefa 1'),
           ),
@@ -40,7 +40,7 @@ class _TarefasState extends State<Tarefas> {
               textStyle: const TextStyle(fontSize: 20),
             ),
             onPressed: () {
-              Navigator.of(context).pushNamed(MyApp.TAREFADETAILS);
+              Navigator.of(context).pushNamed(MyApp.TAREFADETAILS, arguments: 2);
             },
             child: const Text('Tarefa 2'),
           ),
@@ -49,7 +49,7 @@ class _TarefasState extends State<Tarefas> {
               textStyle: const TextStyle(fontSize: 20),
             ),
             onPressed: () {
-              Navigator.of(context).pushNamed(MyApp.TAREFADETAILS);
+              Navigator.of(context).pushNamed(MyApp.TAREFADETAILS, arguments: 3);
             },
             child: const Text('Tarefa 3'),
           ),
@@ -58,7 +58,7 @@ class _TarefasState extends State<Tarefas> {
               textStyle: const TextStyle(fontSize: 20),
             ),
             onPressed: () {
-              Navigator.of(context).pushNamed(MyApp.TAREFADETAILS);
+              Navigator.of(context).pushNamed(MyApp.TAREFADETAILS, arguments: 4);
             },
             child: const Text('Tarefa 4'),
           ),

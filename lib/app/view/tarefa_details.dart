@@ -1,3 +1,5 @@
+import 'package:appidea/app/domain/entities/tarefa.dart';
+import 'package:appidea/app/view/tarefa_details_back.dart';
 import 'package:flutter/material.dart';
 
 import '../my_app.dart';
@@ -12,27 +14,58 @@ class TarefaDetails extends StatefulWidget {
 class _TarefaDetailsState extends State<TarefaDetails> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Tarefa X"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).pushNamed(MyApp.TAREFAFORM);
-            }
-          )
-        ],
-      ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Text("Titulo tarefa X"),
-            Text("Descricao tarefa X"),
-          ]
-        )
-       )
+    var _back = TarefaDetailsBack(context);
+    Tarefa tarefa = _back.tarefa;
+
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints){
+        // var width = constraints.biggest.width;
+        // var height = constraints.biggest.height;
+
+        return Scaffold(
+          body: ListView(
+            children: [
+              Center(
+                child: Text('${tarefa.titulo}', style: TextStyle(fontSize: 30),),
+                ),
+                Card(
+                  child: ListTile(
+                    title: Text('Assunto'),
+                    subtitle: Text('${tarefa.descricao}'),
+                  ),
+                )
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.arrow_back),
+            onPressed: (){
+              _back.goToBack();
+            },
+          ),
+        );
+      },
+      );
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: Text("Tarefa X"),
+    //     actions: [
+    //       IconButton(
+    //         icon: Icon(Icons.add),
+    //         onPressed: () {
+    //           Navigator.of(context).pushNamed(MyApp.TAREFAFORM);
+    //         }
+    //       )
+    //     ],
+    //   ),
+    //   body: Center(
+    //     child: Column(
+    //       children: <Widget>[
+    //         Text("Titulo tarefa X"),
+    //         Text("Descricao tarefa X"),
+    //       ]
+    //     )
+    //    )
       
-    );
+    // );
   }
 }

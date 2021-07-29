@@ -35,6 +35,9 @@ abstract class _SecaoMain with Store{
     Navigator.of(context).pushNamed(MyApp.SECAOFORM).then(refreshSecoes);
   }
 
+  goToTarefas(BuildContext context){
+    Navigator.of(context).pushNamed(MyApp.TAREFAS);
+  }
 
   @action
   removerCor(){
