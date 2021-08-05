@@ -26,6 +26,19 @@ class _TarefaDetailsState extends State<TarefaDetails> {
       );
   }
 
+  showModalError(){
+    var alert = AlertDialog(
+      title: Text('Alerta'),
+      content: Text('Não foi possivel encontrar um APP compativel')
+    );
+    showDialog(
+      context: context, 
+      builder: (BuildContext context) {
+        return alert;
+      }
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     var _back = TarefaDetailsBack(context);
@@ -46,7 +59,7 @@ class _TarefaDetailsState extends State<TarefaDetails> {
                   child: ListTile(
                     title: Text('Assunto'),
                     subtitle: Text('${tarefa.descricao}'),
-                    onTap: launchApp('mailto:cristhian.smaia@gmail.com?subject=${tarefa.titulo}&body=${tarefa.descricao}', context),
+                    onTap: _back.launchEmail(showModalError())
                   ),
                 )
             ],
