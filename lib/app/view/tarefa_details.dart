@@ -1,6 +1,7 @@
 import 'package:appidea/app/domain/entities/tarefa.dart';
 import 'package:appidea/app/view/tarefa_details_back.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../my_app.dart';
 
@@ -12,6 +13,19 @@ class TarefaDetails extends StatefulWidget {
 }
 
 class _TarefaDetailsState extends State<TarefaDetails> {
+
+  launchApp(String url, BuildContext context) async{
+    await canLaunch(url)? await launch(url) : showDialog(
+      context: context, 
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text('Alerta'),
+          content: Text('Não foi possivel encontrar um APP compativel')
+        )
+      }
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     var _back = TarefaDetailsBack(context);
@@ -32,6 +46,7 @@ class _TarefaDetailsState extends State<TarefaDetails> {
                   child: ListTile(
                     title: Text('Assunto'),
                     subtitle: Text('${tarefa.descricao}'),
+                    onTap: launchApp('mailto:cristhian.smaia@gmail.com?subject=${tarefa.titulo}&body=${tarefa.descricao}', context),
                   ),
                 )
             ],

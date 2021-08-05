@@ -27,6 +27,7 @@ dependencies:
   get_it: 7.1.4
   mobx: ^2.0.1
   flutter_mobx: ^2.0.0
+  url_launcher: 5.7.10
   path: 
 
 
