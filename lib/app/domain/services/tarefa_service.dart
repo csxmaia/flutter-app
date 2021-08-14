@@ -10,12 +10,16 @@ class TarefaService{
   save(Tarefa tarefa){
     validarTitulo(tarefa.titulo);
     validarDescricao(tarefa.descricao);
-    validarFinalizado(tarefa.finalizado);
+    // validarFinalizado(tarefa.finalizado);
     _dao.save(tarefa);
   }
 
   remove(int id){
     _dao.remove(id);
+  }
+
+  Future<List<Tarefa>> findBySecaoId(int secao_id){
+    return _dao.findBySecao(secao_id);
   }
 
   Future<List<Tarefa>> find(){
@@ -47,7 +51,7 @@ class TarefaService{
     }
   }
 
-  validarFinalizado(bool finalizado) {
+  validarFinalizado(int? finalizado) {
     if(finalizado == null) {
       throw new DomainLayerException("É obrigatório informar a flag de finalização");
     }

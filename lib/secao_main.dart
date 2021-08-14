@@ -13,41 +13,29 @@ abstract class _SecaoMain with Store{
   var _service = GetIt.I.get<SecaoService>();
 
   @observable
-  var lista = [
-    {'nome': 'To Do', 'cor': Colors.blue},
-    {'nome': 'Doing', 'cor': Colors.green},
-    {'nome': 'Done', 'cor': Colors.red}
-  ];
-
-  late Future<List<Secao>> secoes;
+  Future<List<Secao>> lista = GetIt.I.get<SecaoService>().find();
 
   _SecaoMain(){
     refreshSecoes();
   }
 
   // metodo para atualizar as secoes cadastradas
-  refreshSecoes([dynamic atualizar]){
-    secoes = _service.find();
+  @action
+  refreshSecoes([dynamic value]){
+    lista = _service.find();
   }
 
   // metodo para chamar o form para adicionar a seção
-  formSecao(BuildContext context){
-    Navigator.of(context).pushNamed(MyApp.SECAOFORM).then(refreshSecoes);
+  formSecao(BuildContext context, [Secao? secao]){
+    Navigator.of(context).pushNamed(MyApp.SECAOFORM, arguments: secao).then(refreshSecoes);
   }
 
-  goToTarefas(BuildContext context){
-    Navigator.of(context).pushNamed(MyApp.TAREFAS);
+  goToTarefas(BuildContext context, Secao secao){
+    Navigator.of(context).pushNamed(MyApp.TAREFAS, arguments: secao);
   }
 
-  @action
-  removerCor(){
-    // for(var i = 0; i < lista.length; i++) {
-    //   lista[i] = {'nome': lista[i]["nome"], 'cor': Colors.transparent};
-    // }
-    lista = [
-      {'nome': 'To Do', 'cor': Colors.transparent},
-      {'nome': 'Doing', 'cor': Colors.transparent},
-      {'nome': 'Done', 'cor': Colors.transparent}
-    ];
+  remover(dynamic id){
+    _service.remove(id);
+    refreshSecoes();
   }
 }

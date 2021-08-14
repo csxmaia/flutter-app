@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'secao_main.dart';
+part of 'tarefas_back.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,32 +8,32 @@ part of 'secao_main.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$SecaoMain on _SecaoMain, Store {
-  final _$listaAtom = Atom(name: '_SecaoMain.lista');
+mixin _$TarefasBack on _TarefasBack, Store {
+  final _$listaAtom = Atom(name: '_TarefasBack.lista');
 
   @override
-  Future<List<Secao>> get lista {
+  Future<List<Tarefa>> get lista {
     _$listaAtom.reportRead();
     return super.lista;
   }
 
   @override
-  set lista(Future<List<Secao>> value) {
+  set lista(Future<List<Tarefa>> value) {
     _$listaAtom.reportWrite(value, super.lista, () {
       super.lista = value;
     });
   }
 
-  final _$_SecaoMainActionController = ActionController(name: '_SecaoMain');
+  final _$_TarefasBackActionController = ActionController(name: '_TarefasBack');
 
   @override
-  dynamic refreshSecoes([dynamic value]) {
-    final _$actionInfo = _$_SecaoMainActionController.startAction(
-        name: '_SecaoMain.refreshSecoes');
+  dynamic loadTarefas([dynamic value]) {
+    final _$actionInfo = _$_TarefasBackActionController.startAction(
+        name: '_TarefasBack.loadTarefas');
     try {
-      return super.refreshSecoes(value);
+      return super.loadTarefas(value);
     } finally {
-      _$_SecaoMainActionController.endAction(_$actionInfo);
+      _$_TarefasBackActionController.endAction(_$actionInfo);
     }
   }
 

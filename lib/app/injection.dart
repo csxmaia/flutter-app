@@ -3,6 +3,7 @@ import 'package:appidea/app/database/sqlite/dao/tarefa_dao_impl.dart';
 import 'package:appidea/app/domain/interfaces/secao_dao.dart';
 import 'package:appidea/app/domain/interfaces/tarefa_dao.dart';
 import 'package:appidea/app/domain/services/secao_service.dart';
+import 'package:appidea/app/domain/services/tarefa_service.dart';
 import 'package:get_it/get_it.dart';
 
 setupInjection() {
@@ -11,4 +12,5 @@ setupInjection() {
   getIt.registerSingleton<SecaoDAO>(SecaoDAOImpl());
   getIt.registerSingleton<SecaoService>(SecaoService());
   getIt.registerSingleton<TarefaDAO>(TarefaDAOImpl());
+  getIt.registerSingleton<TarefaService>(TarefaService());
 }

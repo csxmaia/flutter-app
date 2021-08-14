@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TarefaDetailsBack{
-  BuildContext context;
-  late Tarefa tarefa;
+  late BuildContext context;
+  dynamic tarefa;
 
   TarefaDetailsBack(this.context){
     tarefa = ModalRoute.of(context)!.settings.arguments;
-  };
+  }
 
   goToBack(){
     Navigator.of(context).pop();
@@ -18,7 +18,7 @@ class TarefaDetailsBack{
     await canLaunch(url)? await launch(url) : showModalError(context);
   }
 
-  launchEmail(Function(BuildContext context) showModalError){
-    _launchApp('mailto:cristhian.smaia@gmail.com?subject=${tarefa.titulo}&body=${tarefa.descricao}', showModalError);
-  }
+  // launchEmail(Function(BuildContext context) showModalError){
+  //   _launchApp('mailto:cristhian.smaia@gmail.com?subject=${tarefa!.titulo}&body=${tarefa!.descricao}', showModalError);
+  // }
 }

@@ -1,29 +1,63 @@
-import 'package:appidea/app/database/sqlite/connection.dart';
-import 'package:appidea/app/database/sqlite/dao/secao_dao_impl.dart';
 import 'package:appidea/app/domain/entities/secao.dart';
 import 'package:appidea/secao_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../my_app.dart';
-
 
 class Home extends StatelessWidget {
 
-  // static final lista = [
-  //   {'nome': 'To Do', 'cor': Colors.blue},
-  //   {'nome': 'Doing', 'cor': Colors.green},
-  //   {'nome': 'Done', 'cor': Colors.red}
-  // ];
-
-  final stateControl = SecaoMain();
-
-  Future<List<Secao>> _buscar() async {
-    return SecaoDAOImpl().find();
-  }
+  final _back = SecaoMain();
 
   Home({Key? key, required this.title}) : super(key: key);
   final String title;
+
+  void _configurandoModalBottomSheet(context, tarefa) {
+      showModalBottomSheet(
+          context: context,
+          builder: (BuildContext bc) {
+            return Container(
+              child: Wrap(
+                children: <Widget>[
+                  ListTile(
+                    leading: new Icon(Icons.edit, color: Colors.amber),
+                    title: new Text('Editar'),
+                    onTap: () => {
+                      Navigator.of(context).pop(),
+                      _back.formSecao(context, tarefa)
+                    }),
+                  ListTile(
+                    leading: new Icon(Icons.delete, color: Colors.red,),
+                    title: new Text('Deletar'),
+                    onTap: () => {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text("Excluir"),
+                          content: Text("Confirma a exclusão?"),
+                          actions: [
+                            FlatButton(
+                              child: Text('Cancelar'),
+                              onPressed: (){
+                                Navigator.of(context).pop();
+                              }
+                            ),
+                            FlatButton(
+                              child: Text("Confirma"),
+                              onPressed: (){
+                                Navigator.of(context).pop();
+                                // _back.remover(tarefa.id);
+                              },
+                            )
+                          ]
+                        )
+                      )
+                      },
+                  ),
+                ],
+              ),
+            );
+          });
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +65,7 @@ class Home extends StatelessWidget {
             appBar: AppBar(title: Text(title)),
             body: Observer(builder: (context){
               return FutureBuilder(
-               future: stateControl.secoes,
+               future: _back.lista,
                 builder: (context, futuro) {
                   if(!futuro.hasData) {
                     return CircularProgressIndicator();
@@ -41,12 +75,19 @@ class Home extends StatelessWidget {
                       itemCount:  lista!.length,
                       itemBuilder: (context, i){
                         var item = lista[i];
+                        var cor = lista[0].cor;
                         return ListTile(
-                          // title: Text("${item["cor"]}" " ${item["nome"]}"),
-                          // trailing: Text("${item["cor"]}"),
+                          title: Text("${item.cor}" " ${item.nome}"),
+                          trailing: Text(
+                              "${item.cor}",
+                            style: TextStyle(color: Colors.red)
+                          ),
                           onTap: (){
-                            Navigator.of(context).pushNamed(MyApp.TAREFAS);
-                          }
+                            _back.goToTarefas(context, item);
+                          },
+                          onLongPress: (){
+                            _configurandoModalBottomSheet(context, item);
+                          },
                         );
                       }
                     );
@@ -56,7 +97,7 @@ class Home extends StatelessWidget {
               // onPressed: ),
               tooltip: 'Adicionar Seção',
               onPressed: () {
-                stateControl.formSecao(context);
+                _back.formSecao(context);
               },
               child: Icon(Icons.add),
             ),

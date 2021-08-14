@@ -7,12 +7,17 @@ class Connection {
 
   static Future<Database?> get() async {
     if(_db == null){
-      var path = join(await getDatabasesPath(), "banco_todo");
+      var path = join(await getDatabasesPath(), "banco_todo2");
       _db = await openDatabase(
         path,
         version: 1,
         onCreate: (db, v) {
+          // db.delete("secao");
+          // db.execute(deleteAll);
+          // db.execute(dropTable);
           db.execute(createTable);
+          db.execute(createTarefaTable);
+          db.execute(insert1Tarefa);
           db.execute(insert1);
           db.execute(insert2);
           db.execute(insert3);

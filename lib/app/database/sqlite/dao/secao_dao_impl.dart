@@ -36,10 +36,11 @@ class SecaoDAOImpl implements SecaoDAO {
     var sql;
     if(secao.id == null) {
       sql = "INSERT INTO secao(nome, cor) VALUES(?,?)";
+      print(sql);
       _db.rawInsert(sql, [secao.nome, secao.cor]);
     } else {
       sql = "UPDATE secao SET nome = ?, cor = ? WHERE id = ?";
-      _db.rawUpdate(sql,[secao.nome, secao.cor]);
+      _db.rawUpdate(sql,[secao.nome, secao.cor, secao.id]);
     }
   }
 

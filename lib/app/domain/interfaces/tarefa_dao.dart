@@ -6,4 +6,6 @@ abstract class TarefaDAO {
   remove(int id);
 
   Future<List<Tarefa>> find();
+
+  Future<List<Tarefa>> findBySecao(int secao_id);
 }

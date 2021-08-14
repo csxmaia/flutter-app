@@ -17,8 +17,28 @@ class TarefaDAOImpl implements TarefaDAO {
         id: linha['id'],
         titulo: linha['titulo'],
         descricao: linha['descricao'],
-        finalizado: linha['finalizado']
+        finalizado: linha['finalizado'],
+        secao_id: linha['secao_id']
         );
+    });
+
+    return lista;
+  }
+
+  @override
+  Future<List<Tarefa>> findBySecao(int secao_id) async {
+    _db = (await Connection.get())!;
+    var sql = "SELECT * FROM tarefa WHERE secao_id = ?";
+    List<Map<String, dynamic>> resultado = await _db.rawQuery(sql, [secao_id]);
+    List<Tarefa> lista = List.generate(resultado.length, (index) {
+      var linha = resultado[index];
+      return Tarefa(
+          id: linha['id'],
+          titulo: linha['titulo'],
+          descricao: linha['descricao'],
+          finalizado: linha['finalizado'],
+          secao_id: linha['secao_id']
+          );
     });
 
     return lista;
@@ -36,11 +56,11 @@ class TarefaDAOImpl implements TarefaDAO {
     _db = (await Connection.get())!;
     var sql;
     if(tarefa.id == null) {
-      sql = "INSERT INTO tarefa(titulo, descricao, finalizado) VALUES(?,?)";
-      _db.rawInsert(sql, [tarefa.titulo, tarefa.descricao, tarefa.finalizado]);
+      sql = "INSERT INTO tarefa(titulo, descricao, finalizado, secao_id) VALUES(?,?,?,?)";
+      _db.rawInsert(sql, [tarefa.titulo, tarefa.descricao, tarefa.finalizado, tarefa.secao?.id]);
     } else {
-      sql = "UPDATE tarefa SET titulo = ?, descricao = ?, finalizado = ? WHERE id = ?";
-      _db.rawUpdate(sql,[tarefa.titulo, tarefa.descricao, tarefa.finalizado]);
+      sql = "UPDATE tarefa SET titulo = ?, descricao = ?, finalizado = ?, secao_id = ? WHERE id = ?";
+      _db.rawUpdate(sql, [tarefa.titulo, tarefa.descricao, tarefa.finalizado, tarefa.secao_id, tarefa.id]);
     }
   }
 

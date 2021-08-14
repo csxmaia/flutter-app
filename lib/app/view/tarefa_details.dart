@@ -14,30 +14,30 @@ class TarefaDetails extends StatefulWidget {
 
 class _TarefaDetailsState extends State<TarefaDetails> {
 
-  launchApp(String url, BuildContext context) async{
-    await canLaunch(url)? await launch(url) : showDialog(
-      context: context, 
-      builder: (BuildContext context){
-        return AlertDialog(
-          title: Text('Alerta'),
-          content: Text('Não foi possivel encontrar um APP compativel')
-        )
-      }
-      );
-  }
+  // launchApp(String url, BuildContext context) async{
+  //   await canLaunch(url)? await launch(url) : showDialog(
+  //     context: context, 
+  //     builder: (BuildContext context){
+  //       return AlertDialog(
+  //         title: Text('Alerta'),
+  //         content: Text('Não foi possivel encontrar um APP compativel')
+  //       );
+  //     }
+  //     );
+  // }
 
-  showModalError(){
-    var alert = AlertDialog(
-      title: Text('Alerta'),
-      content: Text('Não foi possivel encontrar um APP compativel')
-    );
-    showDialog(
-      context: context, 
-      builder: (BuildContext context) {
-        return alert;
-      }
-      );
-  }
+  // showModalError(){
+  //   var alert = AlertDialog(
+  //     title: Text('Alerta'),
+  //     content: Text('Não foi possivel encontrar um APP compativel')
+  //   );
+  //   showDialog(
+  //     context: context, 
+  //     builder: (BuildContext context) {
+  //       return alert;
+  //     }
+  //     );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +53,13 @@ class _TarefaDetailsState extends State<TarefaDetails> {
           body: ListView(
             children: [
               Center(
-                child: Text('${tarefa.titulo}', style: TextStyle(fontSize: 30),),
+                child: Text('Assunto: ${tarefa.titulo}', style: TextStyle(fontSize: 30),),
                 ),
                 Card(
                   child: ListTile(
-                    title: Text('Assunto'),
-                    subtitle: Text('${tarefa.descricao}'),
-                    onTap: _back.launchEmail(showModalError())
+                    title: Text('Descrição da tarefa'),
+                    subtitle: Text('${tarefa.descricao}')
+                    // onTap: _back.launchEmail(showModalError())
                   ),
                 )
             ],

@@ -2,11 +2,13 @@ import 'package:appidea/app/view/secao_form_back.dart';
 import 'package:flutter/material.dart';
 
 class SecaoForm extends StatelessWidget {
-  const SecaoForm({Key? key}) : super(key: key);
+
+  final _form = GlobalKey<FormState>();
 
   Widget fieldName(SecaoFormBack back) {
     return TextFormField(
       initialValue: back.secao.nome,
+      onSaved: (newValue) => back.secao.nome = newValue!,
       decoration: InputDecoration(
         labelText: "Nome"
       )
@@ -16,6 +18,7 @@ class SecaoForm extends StatelessWidget {
   Widget fieldCor(SecaoFormBack back) {
     return TextFormField(
       initialValue: back.secao.cor,
+      onSaved: (newValue) => back.secao.cor = newValue!,
       decoration: InputDecoration(
         labelText: "Cor"
       )
@@ -30,7 +33,11 @@ class SecaoForm extends StatelessWidget {
         title: Text('Cadastro de Seção'),
         actions: [
           IconButton(
-            onPressed: null, 
+            onPressed: () {
+              _form.currentState!.save();
+              _back.save();
+              Navigator.of(context).pop();
+              },
             icon: Icon(Icons.save)
             )
         ],
@@ -38,6 +45,7 @@ class SecaoForm extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(8),
         child: Form(
+          key: _form,
           child: Column(
             children: [
               fieldName(_back),
@@ -45,15 +53,6 @@ class SecaoForm extends StatelessWidget {
             ],
           ),
         ),
-        // child: Column(
-        //   children: <Widget>[
-        //     Text('label("Nome")'),
-        //     Text('input("Nome")'),
-        //     Text('label("Cor")'),
-        //     Text('input("Cor")'),
-        //     Text('Button Salvar')
-        //   ],
-        // )
       )
     );
   }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "644224648092",
+    "project_id": "lunar-tube-271814",
+    "storage_bucket": "lunar-tube-271814.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644224648092:android:e042b34b64df6fc0a67e59",
+        "android_client_info": {
+          "package_name": "com.example.appidea"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644224648092-7rvgkndk48p8jridm8jcbt786pjjvdon.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLgYnXzW2w2stuWzUKOhimbijbtenpE0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644224648092-7rvgkndk48p8jridm8jcbt786pjjvdon.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

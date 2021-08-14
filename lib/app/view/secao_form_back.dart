@@ -11,20 +11,16 @@ class SecaoFormBack = _SecaoFormBack with _$SecaoFormBack;
 
 abstract class _SecaoFormBack with Store {
 
-late Secao secao;
-var _service = GetIt.I.get<SecaoService>();
-//diferneciar novo com alteração
+  late Secao secao;
+  var _service = GetIt.I.get<SecaoService>();
 
-_SecaoFormBack(BuildContext context) {
-  var parameter = ModalRoute.of(context)?.settings.arguments;
-  secao = (parameter == null)? Secao(id: 0, nome: "", cor: "") : parameter as Secao;
-}
+  _SecaoFormBack(BuildContext context) {
+    var parameter = ModalRoute.of(context)?.settings.arguments;
+    secao = (parameter == null)? Secao(nome: "", cor: "") : parameter as Secao;
+  }
 
-//salvar
-save() async {
-  await _service.save(secao);
-}
-
-//validar
-
+  //salvar
+  save() async {
+    await _service.save(secao);
+  }
 }

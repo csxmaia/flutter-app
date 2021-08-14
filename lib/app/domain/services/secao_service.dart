@@ -18,6 +18,7 @@ class SecaoService{
   }
 
   Future<List<Secao>> find(){
+    Future<List<Secao>> test = _dao.find();
     return _dao.find();
   }
 
@@ -28,7 +29,6 @@ class SecaoService{
     if(name == null) {
       throw new DomainLayerException("O nome é obrigatório");
     }
-
     if(name.length < min) {
       throw new DomainLayerException("O nome deve possuir no minimo $min caracteres");
     }

@@ -1,8 +1,12 @@
+import 'package:appidea/app/domain/entities/secao.dart';
+
 class Tarefa {
-  int id;
+  int? id;
   String titulo;
   String descricao;
-  bool finalizado;
+  int? finalizado;
+  int? secao_id;
+  Secao? secao;
 
-  Tarefa({required this.id, required this.titulo, required this.descricao, required this.finalizado});
+  Tarefa({this.id, required this.titulo, required this.descricao, this.finalizado, this.secao_id, this.secao});
 }
