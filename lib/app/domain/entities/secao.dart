@@ -1,5 +1,5 @@
 class Secao {
-  late int? id;
+  late dynamic? id;
   late String nome;
   late String cor;
 

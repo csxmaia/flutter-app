@@ -13,7 +13,7 @@ class SecaoService{
     _dao.save(secao);
   }
 
-  remove(int id){
+  remove(dynamic id){
     _dao.remove(id);
   }
 

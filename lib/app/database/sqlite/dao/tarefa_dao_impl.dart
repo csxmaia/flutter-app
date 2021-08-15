@@ -26,7 +26,7 @@ class TarefaDAOImpl implements TarefaDAO {
   }
 
   @override
-  Future<List<Tarefa>> findBySecao(int secao_id) async {
+  Future<List<Tarefa>> findBySecao(dynamic secao_id) async {
     _db = (await Connection.get())!;
     var sql = "SELECT * FROM tarefa WHERE secao_id = ?";
     List<Map<String, dynamic>> resultado = await _db.rawQuery(sql, [secao_id]);
@@ -45,7 +45,7 @@ class TarefaDAOImpl implements TarefaDAO {
   }
 
   @override
-  remove(int id) async {
+  remove(dynamic id) async {
       _db = (await Connection.get())!;
       var sql = "DELETE FROM tarefa WHERE id = ?";
       _db.rawDelete(sql, [id]);
