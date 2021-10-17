@@ -12,13 +12,13 @@ mixin _$SecaoMain on _SecaoMain, Store {
   final _$listaAtom = Atom(name: '_SecaoMain.lista');
 
   @override
-  Future<List<Secao>> get lista {
+  Future<List<Secao>?> get lista {
     _$listaAtom.reportRead();
     return super.lista;
   }
 
   @override
-  set lista(Future<List<Secao>> value) {
+  set lista(Future<List<Secao>?> value) {
     _$listaAtom.reportWrite(value, super.lista, () {
       super.lista = value;
     });

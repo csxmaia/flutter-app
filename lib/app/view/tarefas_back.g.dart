@@ -12,13 +12,13 @@ mixin _$TarefasBack on _TarefasBack, Store {
   final _$listaAtom = Atom(name: '_TarefasBack.lista');
 
   @override
-  Future<List<Tarefa>> get lista {
+  Future<List<Tarefa>?> get lista {
     _$listaAtom.reportRead();
     return super.lista;
   }
 
   @override
-  set lista(Future<List<Tarefa>> value) {
+  set lista(Future<List<Tarefa>?> value) {
     _$listaAtom.reportWrite(value, super.lista, () {
       super.lista = value;
     });

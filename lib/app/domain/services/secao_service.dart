@@ -17,8 +17,8 @@ class SecaoService{
     _dao.remove(id);
   }
 
-  Future<List<Secao>> find(){
-    Future<List<Secao>> test = _dao.find();
+  Future<List<Secao>?> find(){
+    Future<List<Secao>?> test = _dao.find();
     return _dao.find();
   }
 

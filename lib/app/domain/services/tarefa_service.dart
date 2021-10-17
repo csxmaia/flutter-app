@@ -18,11 +18,11 @@ class TarefaService{
     _dao.remove(id);
   }
 
-  Future<List<Tarefa>> findBySecaoId(dynamic secao_id){
+  Future<List<Tarefa>?> findBySecaoId(dynamic secao_id){
     return _dao.findBySecao(secao_id);
   }
 
-  Future<List<Tarefa>> find(){
+  Future<List<Tarefa>?> find(){
     return _dao.find();
   }
 

@@ -16,7 +16,7 @@ abstract class _TarefasBack with Store{
   late Secao? secao;
 
   @observable
-  Future<List<Tarefa>> lista = GetIt.I.get<TarefaService>().find();
+  Future<List<Tarefa>?> lista = GetIt.I.get<TarefaService>().find();
 
   _TarefasBack(){
     // refreshTarefas();

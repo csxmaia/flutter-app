@@ -13,7 +13,7 @@ abstract class _SecaoMain with Store{
   var _service = GetIt.I.get<SecaoService>();
 
   @observable
-  Future<List<Secao>> lista = GetIt.I.get<SecaoService>().find();
+  Future<List<Secao>?> lista = GetIt.I.get<SecaoService>().find();
 
   _SecaoMain(){
     refreshSecoes();
